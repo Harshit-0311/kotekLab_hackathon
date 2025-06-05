@@ -5,7 +5,7 @@ const DynamicPortfolio = ({ jsonData = null, jsonUrl = null }) => {
   const [portfolioData, setPortfolioData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+    console.log(jsonData)
   // Fetch JSON data from URL or use provided data
   useEffect(() => {
     const fetchData = async () => {
@@ -200,12 +200,12 @@ const DynamicPortfolio = ({ jsonData = null, jsonUrl = null }) => {
                       <h2 className="card-title h4 mb-0">Experience</h2>
                     </div>
                     <div className="row g-4">
-                      {portfolioData.experience.map((exp, index) => (
+                      {(Array.isArray(portfolioData.experience) ? portfolioData.experience : [portfolioData.experience]).map((exp, index) => (
                         <div key={index} className="col-12">
                           <div className="border-start border-primary border-4 ps-4 pb-4">
                             <div className="d-flex flex-column flex-md-row justify-content-between align-items-start mb-2">
                               <h5 className="fw-bold text-dark mb-1">
-                                {getValue(exp, 'role', 'Role')}
+                                {getValue(exp, 'job_title') || getValue(exp, 'role', 'Role')}
                                 {getValue(exp, 'company') && (
                                   <span className="text-primary"> @ {getValue(exp, 'company')}</span>
                                 )}
